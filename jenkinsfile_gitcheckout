@@ -1,0 +1,19 @@
+pipeline{
+    agent any
+    stages{
+        stage("git checkout")
+        {
+            steps{
+                git branch: 'main', 
+                url: 'https://github.com/deeepakdj/devops.git'
+            }
+        }  
+        stage("build")
+        {
+            steps{
+                echo "hello world"
+                sh "ls -lrt"
+            }
+        }      
+    }
+}
