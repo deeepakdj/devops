@@ -8,6 +8,7 @@ pipeline{
             }
             steps{
                 echo "Building stage"
+                sleep 5
             }
         }
         stage("deploy")
@@ -17,6 +18,7 @@ pipeline{
             }
             steps{
                 echo "Deployment stage"
+                sleep 5
             }
         }
     }
