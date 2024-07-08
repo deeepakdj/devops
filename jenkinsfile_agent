@@ -1,0 +1,19 @@
+pipeline{
+    agent {
+        label "slave1"
+    }
+    stages{
+        stage("build")
+        {
+            steps{
+                echo "Building stage"
+            }
+        }
+        stage("deploy")
+        {
+            steps{
+                echo "Deployment stage"
+            }
+        }
+    }
+}
