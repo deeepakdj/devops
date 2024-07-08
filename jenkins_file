@@ -13,7 +13,7 @@ pipeline{
         stage("build")
         {
             steps{
-                sh "ls"
+                sh '''ls -lrt'''
             }
         }      
     }
