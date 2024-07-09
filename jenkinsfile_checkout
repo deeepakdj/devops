@@ -4,10 +4,12 @@ pipeline{
         stage("git checkout")
         {
             steps{
-                checkout scmGit(branches: [[name: '*/main']],
-                extensions: [],
-                userRemoteConfigs: [[credentialsId: 'github', 
-                url: 'https://github.com/deeepakdj/devops.git']])
+                script {
+                    checkout scmGit(branches: [[name: '*/main']],
+                    extensions: [],
+                    userRemoteConfigs: [[credentialsId: 'github', 
+                    url: 'https://github.com/deeepakdj/devops.git']])
+                }
             }
         }  
         stage("build")
