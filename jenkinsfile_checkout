@@ -3,7 +3,7 @@ pipeline{
     environment{
         SOURCE='GitSCM'
         BRANCH='*/main'
-        URL='https://github.com/deeepakdj/devops.git'
+        GURL='https://github.com/deeepakdj/devops.git'
     }
     stages{
         stage("git checkout")
@@ -17,7 +17,7 @@ pipeline{
                 // }
                 checkout([$class: "${env.SOURCE}", 
                 branches: [[name: "${env.BRANCH}"]],
-                userRemoteConfigs: [[url: "${env.URL}"]]])
+                userRemoteConfigs: [[url: "${env.GURL}"]]])
             }
         }  
         stage("build")
