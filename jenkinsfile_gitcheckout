@@ -16,7 +16,11 @@ pipeline{
         }  
         stage("build")
         {
-            when { environment name: 'BRANCH', value: 'dev' }
+            when { 
+                not {
+                environment name: 'BRANCH', value: 'dev'
+                }
+            }
             steps{
                 echo "Build stage"
                 sh "ls -lrt"
