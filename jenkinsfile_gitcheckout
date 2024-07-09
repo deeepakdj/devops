@@ -17,7 +17,7 @@ pipeline{
         stage("build")
         {
             when { 
-                not {
+                anyof {
                 environment name: 'BRANCH', value: 'dev'
                 }
             }
