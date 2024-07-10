@@ -14,7 +14,7 @@ pipeline{
                         echo "From stage2"
                         sh 'touch textFile.txt'
                     }
-                    catch(AirthmeticException e)
+                    catch(Exception e)
                     {
                         echo "Got an Exception"
                         status = false
