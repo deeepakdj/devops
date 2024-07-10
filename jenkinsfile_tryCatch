@@ -12,7 +12,10 @@ pipeline{
                 script{
                     try{
                         echo "From stage2"
-                        sh 'touch textFile.txt'
+                        sh '''
+                        ls
+                        touch textFile.txt
+                        '''
                     }
                     catch(Exception e)
                     {
