@@ -1,0 +1,39 @@
+pipeline{
+    agent any
+    stages{
+        stage("stage-1"){
+            steps{
+                echo "From stage1"
+            }
+        }
+        stage("parallel-stage"){
+            parallel{
+                stage("Branch-1"){
+                    steps{
+                        echo "From Branch1"
+                    }
+                }
+                stage("Branch-2"){
+                    steps{
+                        echo "From Branch2"
+                    }
+                }
+                stage("Branch-3"){
+                    steps{
+                        echo "From Branch3"
+                    }
+                }
+                stage("Branch-4"){
+                    steps{
+                        echo "From Branch4"
+                    }
+                }
+            }
+        }
+        stage("stage-3"){
+            steps{
+                echo "From stage-3" 
+            }
+        }
+    }
+}
