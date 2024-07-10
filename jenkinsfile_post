@@ -4,13 +4,14 @@ pipeline {
         stage('Example') {
             steps {
                 echo 'Hello World'
-                sleep 10
+                sleep 5
             }
         }
     }
     post {
         always {
             echo 'I will always say Hello again!'
+            sleep 5
             cleanWs()
         }
         changed{
