@@ -8,7 +8,7 @@ pipeline{
         }
         stage("stage-2"){
             steps{
-                catchError(stageResult: 'FAILURE', buildStage: 'SUCCESS'){
+                catchError(stageResult: 'FAILURE', buildResult: 'SUCCESS'){
                     sh 'cat file2.pdf'
                     echo "From stage 2"
                 }
