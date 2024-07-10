@@ -2,14 +2,20 @@ pipeline{
     agent any
     stages{
         stage("stage-1"){
-            echo "From stage 1"
+            steps{
+                echo "From stage 1"
+            }
         }
         stage("stage-2"){
+            steps{
             sh 'cat file2.pdf'
             echo "From stage 2"
+            }
         }
         stage("stage-3"){
+            steps{
             echo "From stage 3"
+            }
         }
     }
 }
