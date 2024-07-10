@@ -12,7 +12,7 @@ pipeline{
                 script{
                     try{
                         echo "From stage2"
-                        sh 'cat textFile.txt'
+                        sh 'cat textFile.pdf'
                     }
                     catch(Exception e)
                     {
