@@ -1,0 +1,50 @@
+boolean status=true
+pipeline{
+    agent any
+    stages{
+        stage("stage-1"){
+            steps{
+                echo "From stage1"
+            }
+        }
+        stage("stage-2"){
+            steps{
+                script{
+                    try{
+                        echo "From stage2"
+                        sh 'touch textFile.txt'
+                    }
+                    catch(AirthmeticException e)
+                    {
+                        echo "Got an Exception"
+                        status = false
+                    }
+                }
+            }
+        }
+        stage("stage-3"){
+            steps{
+                script{
+                    if (status){
+                        echo "From stage3"
+                    }
+                    else{
+                        echo "Skipping stage 3"
+                    }
+                }
+            }
+        }
+        stage("stage-4"){
+            steps{
+                script{
+                    if (!status){
+                        echo "There is an error in stage-2"
+                    }
+                    else{
+                        echo "Skipping stage 4"
+                    }
+                }
+            }
+        }
+    }
+}
