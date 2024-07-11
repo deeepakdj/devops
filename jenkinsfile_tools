@@ -16,24 +16,20 @@ pipeline {
         stage('unit testing'){
             steps{
                 sh '''
-                    cd ./simple-java-maven-app/
                     mvn test
                 '''
             }
         }
         stage('Integration Testing'){
             steps{
-                dir('./simple-java-maven-app/')
-                {
-                    sh 'mvn integration-test'
-                }
+                sh 'mvn integration-test'
             }
         }
         stage('Load Testing'){
             steps{
                 catchError(buildResult:"FAILURE", stageResult:"SUCCESS"){
                     sh '''
-                        cd ./simple-java-maven-app/
+                        mvn verify
                     '''
                 }
             }
@@ -43,7 +39,7 @@ pipeline {
                 script{
                     deploy adapters: [tomcat9(credentialsId:'tomcat',url:'http://3.111.30.174:8080//')],
                                         contextPath: '/java_app',
-                                        war:'/simple-java-maven-app/target/java_app.war'
+                                        war:'./target/java_app.war'
                 }
             }
         }
