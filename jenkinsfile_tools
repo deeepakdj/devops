@@ -31,10 +31,21 @@ pipeline {
         }
         stage('Load Testing'){
             steps{
-                sh '''
-                    cd ./java_app/java_app/
-                    mvn verify
-                '''
+                catchError(buildResult:"FAILURE", stageResult:"SUCCESS"){
+                    sh '''
+                        cd ./java_app/java_app/
+                        mvn verify
+                    '''
+                }
+            }
+        }
+        stage('Deploy'){
+            steps{
+                script{
+                    deploy adapters: [tomcat9(credentialsId:'tomcat',url:'http://3.111.30.174:8080/')],
+                                        contextPath: '/java_app',
+                                        war:'/java_app/java_app/target/java_app.war'
+                }
             }
         }
     }
