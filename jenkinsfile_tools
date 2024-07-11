@@ -9,14 +9,13 @@ pipeline {
                 script{
                     checkout scmGit(branches: [[name: '*/main']], 
                     extensions: [], 
-                    userRemoteConfigs: [[url: 'https://github.com/deeepakdj/Applications-.git']])
+                    userRemoteConfigs: [[url: 'https://github.com/deeepakdj/simple-java-maven-app.git']])
                 }
             }
         }
         stage('unit testing'){
             steps{
                 sh '''
-                    cd ./java_app/java_app/
                     mvn test
                 '''
             }
@@ -31,10 +30,12 @@ pipeline {
         }
         stage('Load Testing'){
             steps{
-                sh '''
-                    cd ./java_app/java_app/
-                    mvn clean verify
-                '''
+                catchError(buildResult:"FAILURE", stageResult:"SUCCESS"){
+                    sh '''
+                        cd ./java_app/java_app/
+                        mvn clean verify
+                    '''
+                }
             }
         }
         stage('Deploy'){
