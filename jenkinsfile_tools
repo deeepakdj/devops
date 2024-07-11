@@ -4,9 +4,35 @@ pipeline {
         maven 'maven'
     }
     stages {
-        stage('Example') {
+        stage('checkout') {
             steps {
-                sh 'mvn --version'
+                script{
+                    checkout scmGit(branches: [[name: '*/main']], 
+                    extensions: [], 
+                    userRemoteConfigs: [[url: 'https://github.com/deeepakdj/Applications-.git']])
+                }
+            }
+        }
+        stage('unit testing'){
+            steps{
+                sh '''
+                    cd ./java_app/java_app/
+                    mvn test
+                '''
+            }
+        }
+        stage('Integration Testing'){
+            steps{
+                dir('./java_app/java_app/')
+                sh 'mvn integration-test'
+            }
+        }
+        stage('Load Testing'){
+            steps{
+                sh '''
+                    cd ./java_app/java_app/
+                    mvn verify
+                '''
             }
         }
     }
