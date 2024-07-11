@@ -9,26 +9,31 @@ pipeline {
                 script{
                     checkout scmGit(branches: [[name: '*/main']], 
                     extensions: [], 
-                    userRemoteConfigs: [[url: 'https://github.com/deeepakdj/simple-java-maven-app.git']])
+                    userRemoteConfigs: [[url: 'https://github.com/deeepakdj/Applications-.git']])
                 }
             }
         }
         stage('unit testing'){
             steps{
                 sh '''
+                    cd ./java_app/java_app/
                     mvn test
                 '''
             }
         }
         stage('Integration Testing'){
             steps{
-                sh 'mvn integration-test'
+                dir('./java_app/java_app/')
+                {
+                    sh 'mvn integration-test'
+                }
             }
         }
         stage('Load Testing'){
             steps{
                 catchError(buildResult:"FAILURE", stageResult:"SUCCESS"){
                     sh '''
+                        cd ./java_app/java_app/
                         mvn verify
                     '''
                 }
@@ -39,7 +44,7 @@ pipeline {
                 script{
                     deploy adapters: [tomcat9(credentialsId:'tomcat',url:'http://3.111.30.174:8080//')],
                                         contextPath: '/java_app',
-                                        war:'./target/java_app.war'
+                                        war:'/java_app/java_app/target/java_app.war'
                 }
             }
         }
