@@ -50,7 +50,7 @@ pipeline {
                 }
             }
             when {
-                TOGGLE 'true'
+                TOGGLE true
             }
             steps{
                 script{
