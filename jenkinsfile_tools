@@ -3,6 +3,9 @@ pipeline {
     tools {
         maven 'maven'
     }
+    options { 
+        buildDiscarder(logRotator(numToKeepStr: '5')) 
+    }
     stages {
         stage('checkout') {
             steps {
@@ -40,6 +43,15 @@ pipeline {
             }
         }
         stage('Deploy'){
+            input {
+                message "Deploy to production?"
+                parameter{
+                    booleanParam(name: 'TOGGLE', defaultValue: true, description: 'Toggle this value')
+                }
+            }
+            when {
+                TOGGLE 'true'
+            }
             steps{
                 script{
                     deploy adapters: [tomcat9(credentialsId:'tomcat',url:'http://52.66.247.16:8080/')],
