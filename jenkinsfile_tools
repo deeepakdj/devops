@@ -37,7 +37,7 @@ pipeline {
                 catchError(buildResult:"FAILURE", stageResult:"SUCCESS"){
                     sh '''
                         cd ./java_app-main/calculator_app/
-                        mvn verify
+                        mvn clean verify
                     '''
                 }
             }
@@ -54,7 +54,7 @@ pipeline {
                     if(TOGGLE){   
                         deploy adapters: [tomcat9(credentialsId:'tomcat',url:'http://3.108.55.255:8080/')],
                                         contextPath: '/calculator',
-                                        war:'./java_app-main/calculator_app/target/calculator.war'
+                                        war:'./java_app-main    /calculator_app/target/calculator.war'
                     }
                     else{
                         echo "Skip Deployment"
