@@ -49,13 +49,15 @@ pipeline {
                     booleanParam(name: 'TOGGLE', defaultValue: true, description: 'Toggle this value')
                 }
             }
-            if(TOGGLE == true)
-            {
-                steps{
-                    script{
+            steps{
+                script{
+                    if(TOGGLE == true){   
                         deploy adapters: [tomcat9(credentialsId:'tomcat',url:'http://52.66.247.16:8080/')],
-                                            contextPath: '/java_app',
-                                            war:'java_app/java_app/target/calculator.war'
+                                        contextPath: '/java_app',
+                                        war:'java_app/java_app/target/calculator.war'
+                    }
+                    else{
+                        echo "Skip Deployment"
                     }
                 }
             }
