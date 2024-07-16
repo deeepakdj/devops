@@ -52,7 +52,7 @@ pipeline {
             steps{
                 script{
                     if(TOGGLE){   
-                        deploy adapters: [tomcat9(credentialsId:'tomcat',url:'http://3.108.55.255:8080/')],
+                        deploy adapters: [tomcat9(credentialsId:'tomcat',url:'http://65.2.142.184:8080/')],
                                         contextPath: '/calculator',
                                         war:'./java_app-main    /calculator_app/target/calculator.war'
                     }
