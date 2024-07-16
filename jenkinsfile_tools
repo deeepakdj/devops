@@ -1,10 +1,10 @@
 pipeline {
     agent any
     environment{
-        id='tomcat'
+        id1='tomcat'
         url1='http://43.204.229.49:8080/'
-        path= '/calculator'
-        warPath= 'java_app-main/calculator_app/target/calculator.war'
+        path1= '/calculator'
+        warPath1= 'java_app-main/calculator_app/target/calculator.war'
     }
     tools {
         maven 'maven'
@@ -61,9 +61,9 @@ pipeline {
                     echo "${params.TOGGLE}"
                     if(TOGGLE.toBoolean()){
                         sh 'ls -lrt'   
-                        deploy adapters: [tomcat9(credentialsId:${env.id},url:${env.url1})],
-                                        contextPath: ${env.path},
-                                        war: ${env.warPath}
+                        deploy adapters: [tomcat9(credentialsId:${env.id1},url:${env.url1})],
+                                        contextPath: ${env.path1},
+                                        war: ${env.warPath1}
                     }
                     else{
                         echo "Skip Deployment"
