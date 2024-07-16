@@ -52,7 +52,7 @@ pipeline {
             steps{
                 script{
                     echo "$TOGGLE"
-                    if(TOGGLE == true){
+                    if(TOGGLE.toBoolean()){
                         sh 'ls -lrt'   
                         deploy adapters: [tomcat9(credentialsId:'tomcat',url:'http://65.2.142.184:8080/')],
                                         contextPath: '/calculator',
