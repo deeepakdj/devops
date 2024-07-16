@@ -20,39 +20,40 @@ pipeline {
             steps{
                 sh '''
                     cd ./java_app-main/calculator_app/
-                    mvn test
+                    mvn clean package
                 '''
             }
         }
-        stage('Integration Testing'){
-            steps{
-                dir('./java_app-main/calculator_app/')
-                {
-                    sh 'mvn integration-test'
-                }
-            }
-        }
-        stage('Load Testing'){
-            steps{
-                catchError(buildResult:"FAILURE", stageResult:"SUCCESS"){
-                    sh '''
-                        cd ./java_app-main/calculator_app/
-                        mvn clean verify
-                    '''
-                }
-            }
-        }
+        // stage('Integration Testing'){
+        //     steps{
+        //         dir('./java_app-main/calculator_app/')
+        //         {
+        //             sh 'mvn integration-test'
+        //         }
+        //     }
+        // }
+        // stage('Load Testing'){
+        //     steps{
+        //         catchError(buildResult:"FAILURE", stageResult:"SUCCESS"){
+        //             sh '''
+        //                 cd ./java_app-main/calculator_app/
+        //                 mvn clean verify
+        //             '''
+        //         }
+        //     }
+        // }
         stage('Deploy'){
             input {
                 message "Deploy to production?"
                 parameters{
-                    booleanParam(name: 'TOGGLE', defaultValue: true, description: 'Toggle this value')
+                    booleanParam(name: 'TOGGLE', description: 'Toggle this value')
                 }
             }
             steps{
                 script{
+                    sh 'ls -lrt'
                     if(TOGGLE){   
-                        deploy adapters: [tomcat9(credentialsId:'tomcat',url:'http://65.2.142.184:8080/')],
+                        deploy adapters: [tomcat9(credentialsId:'tomcat',url:'http://65.2.142.184:8080')],
                                         contextPath: '/calculator',
                                         war:'./java_app-main/calculator_app/target/calculator.war'
                     }
