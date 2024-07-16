@@ -61,9 +61,9 @@ pipeline {
                     echo "${params.TOGGLE}"
                     if(TOGGLE.toBoolean()){
                         sh 'ls -lrt'   
-                        deploy adapters: [tomcat9(credentialsId:${env.id1},url:${env.url1})],
-                                        contextPath: ${env.path1},
-                                        war: ${env.warPath1}
+                        deploy adapters: [tomcat9(credentialsId:"${env.id1}",url:"${env.url1}")],
+                                        contextPath: "${env.path1}",
+                                        war: "${env.warPath1}"
                     }
                     else{
                         echo "Skip Deployment"
