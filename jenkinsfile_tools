@@ -2,7 +2,7 @@ pipeline {
     agent any
     environment{
         Id='tomcat'
-        url1='http://65.2.142.184:8080/'
+        url1='http://43.204.229.49:8080/'
         Path= '/calculator'
         warPath= 'java_app-main/calculator_app/target/calculator.war'
     }
