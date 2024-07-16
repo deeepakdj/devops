@@ -46,7 +46,7 @@ pipeline {
             input {
                 message "Deploy to production?"
                 parameters{
-                    booleanParam(name: 'TOGGLE', description: 'Toggle this value')
+                    booleanParam(name: 'TOGGLE',defaultValue: false, description: 'Toggle this value')
                 }
             }
             steps{
