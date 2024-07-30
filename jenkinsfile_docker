@@ -12,7 +12,10 @@ pipeline{
         }
         stage('build'){
             steps{
-                sh 'docker build -t dockerimage -f Dockerfile-m1 .'
+                sh '''
+                cd ./java_app-main/calculator_app
+                docker build -t dockerimage -f Dockerfile-maven .
+                '''
             }
         }
     }
