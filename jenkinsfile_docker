@@ -1,7 +1,7 @@
 pipeline{
     stages{
         stage('gitcheckout'){
-            step{
+            steps{
                 checkout scmGit(
                     branches: [[name: '*/main']], 
                     extensions: [], 
@@ -10,7 +10,7 @@ pipeline{
             }
         }
         stage('build'){
-            step{
+            steps{
                 sh 'docker build -t dockerimage -f Dockerfile-m1 .'
             }
         }
