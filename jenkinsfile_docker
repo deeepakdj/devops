@@ -1,0 +1,18 @@
+pipeline{
+    stages{
+        stage('gitcheckout'){
+            step{
+                checkout scmGit(
+                    branches: [[name: '*/main']], 
+                    extensions: [], 
+                    userRemoteConfigs: [[url: 'https://github.com/deeepakdj/calculator_app.git']]
+                )
+            }
+        }
+        stage('build'){
+            step{
+                sh 'docker build -t dockerimage -f Dockerfile-m1 .'
+            }
+        }
+    }
+}
